@@ -276,27 +276,27 @@ jobs:
       - add_ssh_keys:
           fingerprints:  # Add key to give write-access below
             - "b5:9b:f3:74:26:00:b3:c3:de:3a:b3:03:ee:0b:0b:64"
-      - run:
-          name: Commit documentation
-          command: |
-            source /tmp/<<pipeline.parameters.max_venv_dir>>/bin/activate
+#       - run:
+#           name: Commit documentation
+#           command: |
+#             source /tmp/<<pipeline.parameters.max_venv_dir>>/bin/activate
 
-            git clone -b <<pipeline.parameters.gh_pages_branch>> git@github.com:GPflow/GPflow.git gh-pages
+#             git clone -b <<pipeline.parameters.gh_pages_branch>> git@github.com:GPflow/GPflow.git gh-pages
 
-            for version in docs_tmp/*; do
-                rm -rf gh-pages/docs/${version}
-            done
-            cp -r docs_tmp/* gh-pages/docs
+#             for version in docs_tmp/*; do
+#                 rm -rf gh-pages/docs/${version}
+#             done
+#             cp -r docs_tmp/* gh-pages/docs
 
-            python doc/update_versions.py <<pipeline.git.branch>> gh-pages/docs
+#             python doc/update_versions.py <<pipeline.git.branch>> gh-pages/docs
 
-            cd gh-pages/docs
+#             cd gh-pages/docs
 
-            git config user.email "docs.bot@gpflow.com"
-            git config user.name "Docs Bot"
-            git add .
-            git commit -m "Build documentation for <<pipeline.git.branch>> [ci skip]"
-            git push origin <<pipeline.parameters.gh_pages_branch>>
+#             git config user.email "docs.bot@gpflow.com"
+#             git config user.name "Docs Bot"
+#             git add .
+#             git commit -m "Build documentation for <<pipeline.git.branch>> [ci skip]"
+#             git push origin <<pipeline.parameters.gh_pages_branch>>
 
   prepare_benchmarks:
     docker:
